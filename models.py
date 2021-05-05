@@ -33,3 +33,17 @@ def get_results(y_test, y_pred):
     cm = confusion_matrix(y_test, log_pred)
     accuracy_score(y_test, log_pred)
     return (cm, accuracy_score)
+
+def run_rfc(X,y):
+    X_train, X_test, y_train, y_test = get_split(X,y)
+    y_pred = rfc(X_train,y_train,X_test)
+    cm, accuracy_score = get_results(y_test, y_pred)
+    print(cm)
+    print(accuracy_score)
+
+def run_log_reg(X,y):
+    X_train, X_test, y_train, y_test = get_split(X,y)
+    y_pred = leg_reg(X_train,y_train,X_test)
+    cm, accuracy_score = get_results(y_test, y_pred)
+    print(cm)
+    print(accuracy_score)
