@@ -32,14 +32,17 @@ def get_results(y_test, y_pred):
     from sklearn.metrics import confusion_matrix, accuracy_score
     cm = confusion_matrix(y_test, y_pred)
     accuracy_score(y_test, y_pred)
-    return (cm, accuracy_score)
+    print(cm)
+    print(accuracy_score)
+    #return (cm, accuracy_score)
 
 def run_rfc(X,y):
     X_train, X_test, y_train, y_test = get_split(X,y)
     y_pred = rfc(X_train,y_train,X_test)
-    cm, accuracy_score = get_results(y_test, y_pred)
-    print(cm)
-    print(accuracy_score)
+    get_results(y_test, y_pred)
+    #cm, accuracy_score = get_results(y_test, y_pred)
+    #print(cm)
+    #print(accuracy_score)
 
 def run_log_reg(X,y):
     X_train, X_test, y_train, y_test = get_split(X,y)
