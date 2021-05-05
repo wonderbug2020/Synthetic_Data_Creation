@@ -21,7 +21,7 @@ def rfc(X_train,y_train,X_test):
     return y_pred
 
 #Baseline Logistic regression model
-def def log_reg(X_train,y_train,X_test):
+def log_reg(X_train,y_train,X_test):
     from sklearn.linear_model import LogisticRegression
     log_cla = LogisticRegression(random_state = 0)
     log_cla.fit(X_train, y_train)
@@ -30,8 +30,8 @@ def def log_reg(X_train,y_train,X_test):
 
 def get_results(y_test, y_pred):
     from sklearn.metrics import confusion_matrix, accuracy_score
-    cm = confusion_matrix(y_test, log_pred)
-    accuracy_score(y_test, log_pred)
+    cm = confusion_matrix(y_test, y_pred)
+    accuracy_score(y_test, y_pred)
     return (cm, accuracy_score)
 
 def run_rfc(X,y):
