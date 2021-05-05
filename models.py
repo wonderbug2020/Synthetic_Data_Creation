@@ -31,22 +31,24 @@ def log_reg(X_train,y_train,X_test):
 def get_results(y_test, y_pred):
     from sklearn.metrics import confusion_matrix, accuracy_score
     cm = confusion_matrix(y_test, y_pred)
-    accuracy_score(y_test, y_pred)
-    print(cm)
-    print(accuracy_score)
-    #return (cm, accuracy_score)
+    score = round(accuracy_score(y_test, y_pred),5)
+    #print(score)
+    return (cm, score)
 
 def run_rfc(X,y):
     X_train, X_test, y_train, y_test = get_split(X,y)
     y_pred = rfc(X_train,y_train,X_test)
     get_results(y_test, y_pred)
-    #cm, accuracy_score = get_results(y_test, y_pred)
-    #print(cm)
-    #print(accuracy_score)
+    cm, score = get_results(y_test, y_pred)
+    print(cm)
+    print("")
+    print(f"The accuracy of the model is {score}")
 
 def run_log_reg(X,y):
     X_train, X_test, y_train, y_test = get_split(X,y)
-    y_pred = leg_reg(X_train,y_train,X_test)
-    cm, accuracy_score = get_results(y_test, y_pred)
+    X_train, X_test = standardize(X_train, X_test)
+    y_pred = log_reg(X_train,y_train,X_test)
+    cm, score = get_results(y_test, y_pred)
     print(cm)
-    print(accuracy_score)
+    print("")
+    print(f"The accuracy of the model is {score}")
