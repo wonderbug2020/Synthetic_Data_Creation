@@ -1,3 +1,7 @@
+#######################
+### PROCESSING DATA ###
+#######################
+
 #Create the train/test split
 def get_split(X,y):
     from sklearn.model_selection import train_test_split
@@ -11,6 +15,10 @@ def standardize(X_train,X_test):
     X_train = sc.fit_transform(X_train)
     X_test = sc.transform(X_test)
     return (X_train,X_test)
+
+##############
+### MODELS ###
+##############
 
 #Baseline Random forest model
 def rfc(X_train,y_train,X_test):
@@ -28,27 +36,59 @@ def log_reg(X_train,y_train,X_test):
     y_pred = log_cla.predict(X_test)
     return y_pred
 
-def get_results(y_test, y_pred):
+#Baseline Linear regresion model
+def lin_reg(X_train,y_train,X_test):
+    from sklearn.linear_model import LinearRegression
+    regressor = LinearRegression()
+    regressor.fit(X_train,y_train)
+    y_pred = regressor.predict(X_test)
+    return y_pred
+
+#########################
+### MODEL QUANTIFIERS ###
+#########################
+
+#Returns the score for a classification model
+def get_class_results(y_test, y_pred):
     from sklearn.metrics import confusion_matrix, accuracy_score
     cm = confusion_matrix(y_test, y_pred)
     score = round(accuracy_score(y_test, y_pred),5)
-    #print(score)
     return (cm, score)
 
+#Returns the score for a regression model
+def get_reg_results(y_test, y_pred):
+    from sklearn.metrics import mean_squared_error
+    mse = round(mean_squared_error(y_test, y_pred),5)
+    return mse
+
+########################################
+### FUNCTIONS TO RUN COMPLETE MODELS ###
+########################################
+
+#Runs the Random forest model
 def run_rfc(X,y):
     X_train, X_test, y_train, y_test = get_split(X,y)
     y_pred = rfc(X_train,y_train,X_test)
-    get_results(y_test, y_pred)
-    cm, score = get_results(y_test, y_pred)
+    #get_results(y_test, y_pred)
+    cm, score = get_class_results(y_test, y_pred)
     print(cm)
     print("")
     print(f"The accuracy of the model is {score}")
 
+#Runs the logistic regression model
 def run_log_reg(X,y):
     X_train, X_test, y_train, y_test = get_split(X,y)
     X_train, X_test = standardize(X_train, X_test)
     y_pred = log_reg(X_train,y_train,X_test)
-    cm, score = get_results(y_test, y_pred)
+    cm, score = get_class_results(y_test, y_pred)
     print(cm)
     print("")
     print(f"The accuracy of the model is {score}")
+
+#Runs the Linear regression model
+def run_lin_reg(X,y):
+    X_train, X_test, y_train, y_test = get_split(X,y)
+    X_train, X_test = standardize(X_train, X_test)
+    y_pred = lin_reg(X_train,y_train,X_test)
+    mse = get_reg_results(y_test, y_pred)
+    print(f"The mean square error is {mse}")
