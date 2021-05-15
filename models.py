@@ -39,18 +39,17 @@ def get_class_results(y_test, y_pred):
     from sklearn.metrics import confusion_matrix, accuracy_score
     cm = confusion_matrix(y_test, y_pred)
     score = round(accuracy_score(y_test, y_pred),5)
-    #print(score)
     return (cm, score)
 
 def get_reg_results(y_test, y_pred):
-    from sklearn.metrics import mean_square_error
-    mse = mean_squared_error(y_true, y_pred)
+    from sklearn.metrics import mean_squared_error
+    mse = round(mean_squared_error(y_test, y_pred),5)
     return mse
 
 def run_rfc(X,y):
     X_train, X_test, y_train, y_test = get_split(X,y)
     y_pred = rfc(X_train,y_train,X_test)
-    get_results(y_test, y_pred)
+    #get_results(y_test, y_pred)
     cm, score = get_class_results(y_test, y_pred)
     print(cm)
     print("")
