@@ -42,6 +42,11 @@ def get_class_results(y_test, y_pred):
     #print(score)
     return (cm, score)
 
+def get_reg_results(y_test, y_pred):
+    from sklearn.metrics import mean_square_error
+    mse = mean_squared_error(y_true, y_pred)
+    return mse
+
 def run_rfc(X,y):
     X_train, X_test, y_train, y_test = get_split(X,y)
     y_pred = rfc(X_train,y_train,X_test)
@@ -64,3 +69,5 @@ def run_lin_reg(X,y):
     X_train, X_test, y_train, y_test = get_split(X,y)
     X_train, X_test = standardize(X_train, X_test)
     y_pred = lin_reg(X_train,y_train,X_test)
+    mse = get_reg_results(y_test, y_pred)
+    print(f"The mean square error is {mse}")
